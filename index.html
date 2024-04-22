@@ -80,12 +80,20 @@
     function makePayload(deviceName) {
         const checksum = crc16changgong(deviceName.slice(-5));
         // prettier-ignore
+        // FE FE 09 B8 00 00 05 09 03 04 02 06
+
+        // FE FE 09 B2 
+        // 01 28 8C FF 
+        // 00 0B 3C 24 
+        // 04 22 21 08
+        // 43 A8 03 00
+        // fefe09b201288cff000b3c240422210843a80300
         return new Uint8Array([
             0xFE, 0xFE, 0x09, 0xB8,
-            0x01, checksum & 0xFF, checksum >> 8, 0x00,
-            0x70, 0xE2, 0xEB, 0x20,
-            0x01, 0x01, 0x00, 0x00,
-            0x00, 0x6C, 0x30, 0x00
+            0x01, checksum & 0xFF, checksum >> 8, 0xFF,
+            0x00, 0x0B, 0x3C, 0x24,
+            0x04, 0x22, 0x21, 0x08,
+            0x43, 0xA8, 0x03, 0x00
         ]);                   
         // 
         // 0x32 0x33 0x30 0x35 0x39 0x33 0x34 0x32 0x36
